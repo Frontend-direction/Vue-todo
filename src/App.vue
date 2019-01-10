@@ -1,31 +1,37 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <List  :items="items" @deleteItem="deleteItem" />
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
+<script>
+import List from './components/List.vue'
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+export default {
+  name: 'App',
+  components: {
+   List
+  },
+  data () {
+    return {
+      items: [
+          { id:1, title: 'Jason Oner', status:false},
+          { id:2, title: 'Travis Howard', status:true},
+          { id:3, title: 'Ali Connors', status:false },
+          { id:4, title: 'Cindy Baker', status:false }
+        ],
+      idCount: 4
+    }
+  },
+  methods: {
+    deleteItem(id){
+       const itemIndex = this.items.findIndex(el => el.id === id);
+       this.items.splice(itemIndex, 1)
+    }
+   
+  },
+  computed: {
+ 
+  }
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+</script>
